@@ -36,48 +36,6 @@ namespace EtEdrive {
         MODULE = id
     }
 
-    //% block="stop %id"
-    //% block.loc.nl="stop %id"
-    //% id.defl="EtBuggy"
-    export function stop(id: string) {
-        EtCommon.setValue(id, "stop", "")
-    }
-
-    //% block="move %id at %speed \\%"
-    //% block.loc.nl="rijd %id met snelheid %speed \\%"
-    //% id.defl="EtBuggy"
-    //% speed.min=0 speed.max=100 speed.defl=50
-    export function setSpeedPerc(id: string, speed: number) {
-        EtCommon.setValue(id, "perc", speed.toString())
-    }
-
-    //% block="move %id at %speed m/s"
-    //% block.loc.nl="rijd %id met snelheid %speed m/s"
-    //% id.defl="EtBuggy"
-    //% speed.min=0 speed.max=2 speed.defl=1
-    export function setSpeedMps(id: string, speed: number) {
-        EtCommon.setValue(id, "mps", speed.toString())
-    }
-
-    //% block="move %id at %speed km/hr"
-    //% block.loc.nl="rijd %id met snelheid %speed km/uur"
-    //% id.defl="EtBuggy"
-    //% speed.min=0 speed.max=7 speed.defl=4
-    export function setSpeedKph(id: string, speed: number) {
-        EtCommon.setValue(id, "kph", speed.toString())
-    }
-
-    //% block="speed of %id"
-    //% block.loc.nl="snelheid van %id"
-    //% id.defl="EtBuggy"
-    export function getSpeed(id: string): number {
-        let speed: string = ""
-        EtCommon.askValue(id, "speed")
-        while (speed.isEmpty())
-            speed = EtCommon.getValue(id, "A", "speed")
-        return parseFloat(speed)
-    }
-
     //% block="move %id %dir"
     //% block.loc.nl="rijd met %id %dir"
     //% id.defl="EtBuggy"
@@ -99,9 +57,51 @@ namespace EtEdrive {
     }
 
     //% block="move %id straight"
-    //% block.loc.nl="rijd met %id rechtdoor"
+    //% block.loc.nl="rijd %id rechtdoor"
     //% id.defl="EtBuggy"
     export function setStraight(id: string) {
         EtCommon.setValue(id, "straight", "")
+    }
+
+    //% block="stop %id"
+    //% block.loc.nl="stop %id"
+    //% id.defl="EtBuggy"
+    export function stop(id: string) {
+        EtCommon.setValue(id, "stop", "")
+    }
+
+    //% block="speed of %id"
+    //% block.loc.nl="snelheid van %id"
+    //% id.defl="EtBuggy"
+    export function getSpeed(id: string): number {
+        let speed: string = ""
+        EtCommon.askValue(id, "speed")
+        while (speed.isEmpty())
+            speed = EtCommon.getValue(id, "A", "speed")
+        return parseFloat(speed)
+    }
+
+    //% block="move %id at %speed m/s"
+    //% block.loc.nl="rijd %id met snelheid %speed m/s"
+    //% id.defl="EtBuggy"
+    //% speed.min=0 speed.max=2 speed.defl=1
+    export function setSpeedMps(id: string, speed: number) {
+        EtCommon.setValue(id, "mps", speed.toString())
+    }
+
+    //% block="move %id at %speed km/hr"
+    //% block.loc.nl="rijd %id met snelheid %speed km/uur"
+    //% id.defl="EtBuggy"
+    //% speed.min=0 speed.max=7 speed.defl=4
+    export function setSpeedKph(id: string, speed: number) {
+        EtCommon.setValue(id, "kph", speed.toString())
+    }
+
+    //% block="move %id at %speed \\%"
+    //% block.loc.nl="rijd %id met snelheid %speed \\%"
+    //% id.defl="EtBuggy"
+    //% speed.min=0 speed.max=100 speed.defl=50
+    export function setSpeedPerc(id: string, speed: number) {
+        EtCommon.setValue(id, "perc", speed.toString())
     }
 }
