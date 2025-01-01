@@ -15,9 +15,6 @@ namespace EtEdrive {
     }
 
     enum Turning {
-        //% block="straight"
-        //% block.loc.nl="rechtdoor"
-        Straight,
         //% block="left"
         //% block.loc.nl="links"
         Left,
@@ -46,7 +43,7 @@ namespace EtEdrive {
         EtCommon.setValue(id, "stop", "")
     }
 
-    //% block="set speed of %id to %speed \\%"
+    //% block="move %id at %speed \\%"
     //% block.loc.nl="rijd %id met snelheid %speed \\%"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=100 speed.defl=50
@@ -54,7 +51,7 @@ namespace EtEdrive {
         EtCommon.setValue(id, "perc", speed.toString())
     }
 
-    //% block="set speed of %id to %speed m/s"
+    //% block="move %id at %speed m/s"
     //% block.loc.nl="rijd %id met snelheid %speed m/s"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=2 speed.defl=1
@@ -62,7 +59,7 @@ namespace EtEdrive {
         EtCommon.setValue(id, "mps", speed.toString())
     }
 
-    //% block="set speed of %id to %speed km/hr"
+    //% block="move %id at %speed km/hr"
     //% block.loc.nl="rijd %id met snelheid %speed km/uur"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=7 speed.defl=4
