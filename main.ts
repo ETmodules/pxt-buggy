@@ -5,7 +5,7 @@ namespace EtEdrive {
 
     let MODULE: string = "EtBuggy"
 
-    enum Direction {
+    export enum Direction {
         //% block="forward"
         //% block.loc.nl="vooruit"
         Forward,
@@ -14,7 +14,7 @@ namespace EtEdrive {
         Reverse
     }
 
-    enum Turning {
+    export enum Turning {
         //% block="left"
         //% block.loc.nl="links"
         Left,
