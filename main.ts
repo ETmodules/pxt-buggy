@@ -23,6 +23,22 @@ namespace EtEdrive {
         Right
     }
 
+    let EVENT_ISRUNNING = "isrunning"
+    let EventStarted: EtCommon.eventHandler
+    let EventStopped: EtCommon.eventHandler
+
+    export function onEventStarted(id: string) {
+        if (EventStarted) {
+            EventStarted(id)
+        }
+    }
+
+    export function onEventStopped(id: string) {
+        if (EventStopped) {
+            EventStopped(id)
+        }
+    }
+
     //% block="ID"
     //% block.loc.nl="ID"
     export function id(): string {
@@ -34,6 +50,29 @@ namespace EtEdrive {
     //% id.defl="EtBuggy"
     export function setModuleId(id: string) {
         MODULE = id
+    }
+
+    //% block="module %id is playing"
+    //% block.loc.nl="module %id speelt af"
+    //% id.defl="EtBuggy"
+    export function isPlaying(id: string): boolean {
+        return EtCommon.events.testEvent(MODULE, EVENT_ISRUNNING, "true")
+    }
+
+    //% block="when playing stopped at %id"
+    //% block.loc.nl="wanneer het afspelen op %id stopt"
+    //% id.defl="EtBuggy"
+    export function onStopped(id: string, programmableCode: () => void): void {
+        EtCommon.events.register(MODULE, EVENT_ISRUNNING, "false", onEventStopped)
+        EventStopped = programmableCode
+    }
+
+    //% block="when playing started at %id"
+    //% block.loc.nl="wanneer het afspelen op %id begint"
+    //% id.defl="EtBuggy"
+    export function onStarted(id: string, programmableCode: () => void): void {
+        EtCommon.events.register(MODULE, EVENT_ISRUNNING, "true", onEventStarted)
+        EventStarted = programmableCode
     }
 
     //% block="move %id %dir"
