@@ -23,17 +23,16 @@ namespace EtBuggy {
         Right
     }
 
-    let EVENT_ISRUNNING = "isrunning"
     let EventStarted: EtCommon.eventHandler
     let EventStopped: EtCommon.eventHandler
 
-    export function onEventStarted(id: string) {
+    export function onEventStarted(id: string, value: string) {
         if (EventStarted) {
             EventStarted(id)
         }
     }
 
-    export function onEventStopped(id: string) {
+    export function onEventStopped(id: string, value: string) {
         if (EventStopped) {
             EventStopped(id)
         }
@@ -52,26 +51,19 @@ namespace EtBuggy {
         MODULE = id
     }
 
-    //% block="module %id is playing"
-    //% block.loc.nl="module %id speelt af"
-    //% id.defl="EtBuggy"
-    export function isPlaying(id: string): boolean {
-        return EtCommon.events.testEvent(MODULE, EVENT_ISRUNNING, "true")
-    }
-
-    //% block="when playing stopped at %id"
-    //% block.loc.nl="wanneer het afspelen op %id stopt"
+    //% block="when %id stops running"
+    //% block.loc.nl="wanneer %id stil komt te staan"
     //% id.defl="EtBuggy"
     export function onStopped(id: string, programmableCode: () => void): void {
-        EtCommon.events.register(MODULE, EVENT_ISRUNNING, "false", onEventStopped)
+        EtCommon.events.register(MODULE, "stopped", onEventStopped)
         EventStopped = programmableCode
     }
 
-    //% block="when playing started at %id"
-    //% block.loc.nl="wanneer het afspelen op %id begint"
+    //% block="when %id starts running"
+    //% block.loc.nl="wanneer %id begint te rijden"
     //% id.defl="EtBuggy"
     export function onStarted(id: string, programmableCode: () => void): void {
-        EtCommon.events.register(MODULE, EVENT_ISRUNNING, "true", onEventStarted)
+        EtCommon.events.register(MODULE, "started", onEventStarted)
         EventStarted = programmableCode
     }
 
@@ -80,9 +72,9 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     export function setDirection(id: string, dir: Direction) {
         if (dir == Direction.Forward)
-            EtCommon.setValue(id, "forward", "")
+            EtCommon.sendSignal(id, "forward", "")
         else
-            EtCommon.setValue(id, "reverse", "")
+            EtCommon.sendSignal(id, "reverse", "")
     }
 
     //% block="turn %id %degr to the %turn"
@@ -90,34 +82,23 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     export function setTurning(id: string, degr: number, turn: Turning) {
         if (turn == Turning.Left)
-            EtCommon.setValue(id, "left", degr.toString())
+            EtCommon.sendSignal(id, "left", degr.toString())
         else
-            EtCommon.setValue(id, "right", degr.toString())
+            EtCommon.sendSignal(id, "right", degr.toString())
     }
 
     //% block="move %id straight"
     //% block.loc.nl="rijd %id rechtdoor"
     //% id.defl="EtBuggy"
     export function setStraight(id: string) {
-        EtCommon.setValue(id, "straight", "")
+        EtCommon.sendSignal(id, "straight", "")
     }
 
     //% block="stop %id"
     //% block.loc.nl="stop %id"
     //% id.defl="EtBuggy"
     export function stop(id: string) {
-        EtCommon.setValue(id, "stop", "")
-    }
-
-    //% block="speed of %id"
-    //% block.loc.nl="snelheid van %id"
-    //% id.defl="EtBuggy"
-    export function getSpeed(id: string): number {
-        let speed: string = ""
-        EtCommon.askValue(id, "speed")
-        while (speed.isEmpty())
-            speed = EtCommon.getValue(id, "A", "speed")
-        return parseFloat(speed)
+        EtCommon.sendSignal(id, "stop", "")
     }
 
     //% block="move %id at %speed m/s"
@@ -125,7 +106,7 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=2 speed.defl=1
     export function setSpeedMps(id: string, speed: number) {
-        EtCommon.setValue(id, "mps", speed.toString())
+        EtCommon.sendSignal(id, "mps", speed.toString())
     }
 
     //% block="move %id at %speed km/hr"
@@ -133,7 +114,7 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=7 speed.defl=4
     export function setSpeedKph(id: string, speed: number) {
-        EtCommon.setValue(id, "kph", speed.toString())
+        EtCommon.sendSignal(id, "kph", speed.toString())
     }
 
     //% block="move %id at %speed \\%"
@@ -141,6 +122,6 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=100 speed.defl=50
     export function setSpeedPerc(id: string, speed: number) {
-        EtCommon.setValue(id, "perc", speed.toString())
+        EtCommon.sendSignal(id, "perc", speed.toString())
     }
 }
