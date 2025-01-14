@@ -92,8 +92,8 @@ namespace EtBuggy {
         EventStarted = programmableCode
     }
 
-    //% block="turn %id %degr to the %turn"
-    //% block.loc.nl="draai %id %degr graden naar %turn"
+    //% block="steer %id %degr ° to the %turn"
+    //% block.loc.nl="stuur %id %degr ° naar %turn"
     //% id.defl="EtBuggy"
     export function setTurning(id: string, degr: number, turn: Turning) {
         if (turn == Turning.Left)
