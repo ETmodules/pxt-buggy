@@ -6,14 +6,14 @@ namespace EtBuggy {
     let MODULE: string = "EtBuggy"
 
     export enum Calibration {
-        //% block="1 meter"
-        //% block.loc.nl="1 meter"
+        //% block="driving 1 meter"
+        //% block.loc.nl="1 meter rijden"
         Distance,
-        //% block="1 rotation"
-        //% block.loc.nl="1 rotatie"
+        //% block="1 turn of the wheel"
+        //% block.loc.nl="1 rondje van het wiel"
         Rotation,
-        //% block="45°"
-        //% block.loc.nl="45°"
+        //% block="45° steering"
+        //% block.loc.nl="45° bijsturen"
         Steering
     }
 
