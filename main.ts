@@ -67,16 +67,6 @@ namespace EtBuggy {
         EventStarted = programmableCode
     }
 
-    //% block="move %id %dir"
-    //% block.loc.nl="rijd met %id %dir"
-    //% id.defl="EtBuggy"
-    export function setDirection(id: string, dir: Direction) {
-        if (dir == Direction.Forward)
-            EtCommon.sendSignal(id, "forward", "")
-        else
-            EtCommon.sendSignal(id, "reverse", "")
-    }
-
     //% block="turn %id %degr to the %turn"
     //% block.loc.nl="draai %id %degr graden naar %turn"
     //% id.defl="EtBuggy"
@@ -101,27 +91,36 @@ namespace EtBuggy {
         EtCommon.sendSignal(id, "stop", "")
     }
 
-    //% block="move %id at %speed m/s"
-    //% block.loc.nl="rijd %id met snelheid %speed m/s"
+    //% block="move %id %dir at %speed m/s"
+    //% block.loc.nl="rijd %id %dir met %speed m/s"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=2 speed.defl=1
-    export function setSpeedMps(id: string, speed: number) {
-        EtCommon.sendSignal(id, "mps", speed.toString())
+    export function setSpeedMps(id: string, dir: Direction, speed: number) {
+        if (dir == Direction.Forward)
+            EtCommon.sendSignal(id, "fmps", speed.toString())
+        else
+            EtCommon.sendSignal(id, "rmps", speed.toString())
     }
 
-    //% block="move %id at %speed km/hr"
-    //% block.loc.nl="rijd %id met snelheid %speed km/uur"
+    //% block="move %id %dir at %speed km/hr"
+    //% block.loc.nl="rijd %id %dir met %speed km/uur"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=7 speed.defl=4
-    export function setSpeedKph(id: string, speed: number) {
-        EtCommon.sendSignal(id, "kph", speed.toString())
+    export function setSpeedKph(id: string, dir: Direction, speed: number) {
+        if (dir == Direction.Forward)
+            EtCommon.sendSignal(id, "fkph", speed.toString())
+        else
+            EtCommon.sendSignal(id, "rkph", speed.toString())
     }
 
-    //% block="move %id at %speed \\%"
-    //% block.loc.nl="rijd %id met snelheid %speed \\%"
+    //% block="move %id %dir at %speed \\% of speed"
+    //% block.loc.nl="rijd %id %dir met %speed \\% snelheid"
     //% id.defl="EtBuggy"
     //% speed.min=0 speed.max=100 speed.defl=50
-    export function setSpeedPerc(id: string, speed: number) {
-        EtCommon.sendSignal(id, "perc", speed.toString())
+    export function setSpeedPerc(id: string, dir: Direction, speed: number) {
+        if (dir == Direction.Forward)
+            EtCommon.sendSignal(id, "fperc", speed.toString())
+        else
+            EtCommon.sendSignal(id, "rperc", speed.toString())
     }
 }
