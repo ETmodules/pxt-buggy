@@ -12,8 +12,8 @@ namespace EtBuggy {
         //% block="1 rotation"
         //% block.loc.nl="1 rotatie"
         Rotation,
-        //% block="45 &degr;"
-        //% block.loc.nl="45 &degr;"
+        //% block="45°"
+        //% block.loc.nl="45°"
         Steering
     }
 
