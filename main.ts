@@ -5,6 +5,18 @@ namespace EtBuggy {
 
     let MODULE: string = "EtBuggy"
 
+    export enum Calibration {
+        //% block="1 meter"
+        //% block.loc.nl="1 meter"
+        Distance,
+        //% block="1 rotation"
+        //% block.loc.nl="1 rotatie"
+        Rotation,
+        //% block="45 &degr;"
+        //% block.loc.nl="45 &degr;"
+        Steering
+    }
+
     export enum Direction {
         //% block="forward"
         //% block.loc.nl="vooruit"
@@ -49,6 +61,19 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     export function setModuleId(id: string) {
         MODULE = id
+    }
+
+    //% block="for %id calibrate %calib"
+    //% block.loc.nl="voor %id calibreer %calib"
+    //% id.defl="EtBuggy"
+    export function calibrate(id: string, calib: Calibration) {
+        if (calib == Calibration.Distance)
+            EtCommon.sendSignal(id, "caldististance", "")
+        else
+        if (calib == Calibration.Rotation)
+            EtCommon.sendSignal(id, "calrotation", "")
+        else
+            EtCommon.sendSignal(id, "calstering", "")
     }
 
     //% block="when %id stops running"
