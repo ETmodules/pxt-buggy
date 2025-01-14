@@ -5,6 +5,9 @@ namespace EtBuggy {
 
     let MODULE: string = "EtBuggy"
 
+    let EXLEFTRIGHT = false
+    let EXFORWREV = false
+
     export enum Calibration {
         //% block="driving 1 meter"
         //% block.loc.nl="1 meter rijden"
@@ -71,10 +74,24 @@ namespace EtBuggy {
         if (calib == Calibration.Distance)
             EtCommon.sendSignal(id, "caldististance", "")
         else
-        if (calib == Calibration.Rotation)
-            EtCommon.sendSignal(id, "calrotation", "")
-        else
-            EtCommon.sendSignal(id, "calstering", "")
+            if (calib == Calibration.Rotation)
+                EtCommon.sendSignal(id, "calrotation", "")
+            else
+                EtCommon.sendSignal(id, "calstering", "")
+    }
+
+    //% block="exchange left and right with %id"
+    //% block.loc.nl="verwissel links en rechts bij %id"
+    //% id.defl="EtBuggy"
+    export function exchLeftRight(id: string) {
+        EXLEFTRIGHT = true;
+    }
+
+    //% block="exchange forward and reverse with %id"
+    //% block.loc.nl="verwissel vooruit en achteruit bij %id"
+    //% id.defl="EtBuggy"
+    export function exchForwRev(id: string) {
+        EXFORWREV = true;
     }
 
     //% block="when %id stops running"
@@ -98,9 +115,9 @@ namespace EtBuggy {
     //% id.defl="EtBuggy"
     export function setTurning(id: string, degr: number, turn: Turning) {
         if (turn == Turning.Left)
-            EtCommon.sendSignal(id, "left", degr.toString())
+            EtCommon.sendSignal(id, (EXLEFTRIGHT ? "right" :"left"), degr.toString())
         else
-            EtCommon.sendSignal(id, "right", degr.toString())
+            EtCommon.sendSignal(id, (EXLEFTRIGHT ? "left" : "right"), degr.toString())
     }
 
     //% block="move %id straight"
@@ -123,9 +140,9 @@ namespace EtBuggy {
     //% speed.min=0 speed.max=2 speed.defl=1
     export function setSpeedMps(id: string, dir: Direction, speed: number) {
         if (dir == Direction.Forward)
-            EtCommon.sendSignal(id, "fmps", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "rmps" : "fmps"), speed.toString())
         else
-            EtCommon.sendSignal(id, "rmps", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "fmps" : "rmps"), speed.toString())
     }
 
     //% block="move %id %dir at %speed km/hr"
@@ -134,9 +151,9 @@ namespace EtBuggy {
     //% speed.min=0 speed.max=7 speed.defl=4
     export function setSpeedKph(id: string, dir: Direction, speed: number) {
         if (dir == Direction.Forward)
-            EtCommon.sendSignal(id, "fkph", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "rkph" : "fkph"), speed.toString())
         else
-            EtCommon.sendSignal(id, "rkph", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "fkph" : "rkph"), speed.toString())
     }
 
     //% block="move %id %dir at %speed \\% of speed"
@@ -145,8 +162,8 @@ namespace EtBuggy {
     //% speed.min=0 speed.max=100 speed.defl=50
     export function setSpeedPerc(id: string, dir: Direction, speed: number) {
         if (dir == Direction.Forward)
-            EtCommon.sendSignal(id, "fperc", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "rperc" : "fperc"), speed.toString())
         else
-            EtCommon.sendSignal(id, "rperc", speed.toString())
+            EtCommon.sendSignal(id, (EXFORWREV ? "fperc" : "rperc"), speed.toString())
     }
 }
