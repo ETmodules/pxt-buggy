@@ -63,10 +63,10 @@ namespace EtBuggy {
         MODULE = id
     }
 
-    //% block="for %id calibrate %calib"
-    //% block.loc.nl="voor %id calibreer %calib"
+    //% block="calibrate %calib for %id"
+    //% block.loc.nl="kalibreer %calib voor %id"
     //% id.defl="EtBuggy"
-    export function calibrate(id: string, calib: Calibration) {
+    export function calibrate(calib: Calibration, id: string) {
         if (calib == Calibration.Distance)
             EtCommon.sendSignal(id, "caldististance", "")
         else
