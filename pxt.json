@@ -5,7 +5,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-common": "github:etmodules/pxt-common#6a591180be848759a6d6eecc34ee5005b91ad297"
+        "pxt-common": "github:etmodules/pxt-common#dc97488c8f57b30547616f6fb168c5395eae1ab7"
     },
     "files": [
         "main.blocks",
